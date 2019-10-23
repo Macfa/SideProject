@@ -15,33 +15,50 @@
 	<canvas id="canvas">
 	</canvas>
 	<script type="text/javascript">
-		var COLS=25, ROWS=25;
+		// CONSTANTS
+		const COLS=25, ROWS=25;
+		// IDs
+		const EMPTY=0, SNAKE=1, FOOD=2;
 
 		var grid = {
 			height: null,
 			width: null,
-			state: null,
+			_grid: null,
 
-			init: function() {
+			init: function(id,c,r) {
+				this.height = r;
+				this.width = c;
+				this._grid = [];
 
+				for (var i=0; i < c; i++) {
+					this._grid.push([]); // 배열 안에 컬럼값 기입
+					for (	var j=0; j < r; j++) {
+						this._grid[i].push(id); // 컬럼값의 ids값
+					}
+				}
 			},
 
-			set: function() {
-
+			set: function(val,x,y) {
+				for (	var i=0; i < x; i++) {
+					for ( var j=0; j < y; j++) {
+						this._grid[i][j].push(val);
+					}
+				}
 			},
 
-			get: function() {
-
+			get: function(x,y) {
+				return this._grid[x][y];
 			}
 		}
 
 		var snake = {
 			x: null,
 			y: null,
-			direct: null,
+			direction: null,
+			_queue: null,
 
-			init: function() {
-
+			init: function(d, x, y) {
+				
 			},
 
 			insert: function() {
