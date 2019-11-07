@@ -2,81 +2,74 @@
 <html>
 <head>
 	<title>Snake Bite Game</title>
-	<style>
-		#canvas {
-			border: 1px solid black;
-			width:50%;
-			height:50%;
+	<style type="text/css">
+		canvas {
+			border: 1px black solid;
 		}
 	</style>
 </head>
 <body>
 
-	<canvas id="canvas">
-	</canvas>
-	<script type="text/javascript">
-		// CONSTANTS
-		const COLS=25, ROWS=25;
-		// IDs
-		const EMPTY=0, SNAKE=1, FOOD=2;
 
-		var grid = {
-			height: null,
-			width: null,
-			_grid: null,
+<script type="text/javascript">
+	var COLS = 20, ROWS = 20;
+	var SNAKE = 0, FOOD = 1;
+	var grid = {
+		width: null,
+		height: null,
+		_grid: null,
 
-			init: function(id,c,r) {
-				this.height = r;
-				this.width = c;
-				this._grid = [];
-
-				for (var i=0; i < c; i++) {
-					this._grid.push([]); // 배열 안에 컬럼값 기입
-					for (	var j=0; j < r; j++) {
-						this._grid[i].push(id); // 컬럼값의 ids값
-					}
+		init: function(c,r,d) {
+			width = c;
+			height = r;
+			_grid = [];
+			for (var i = 0; i < c.length; i++) {
+				_grid.push(i);
+				for (var j = 0; j < r.length; j++) {
+					_grid[i][j] = d;
 				}
-			},
-
-			set: function(val,x,y) {
-				for (	var i=0; i < x; i++) {
-					for ( var j=0; j < y; j++) {
-						this._grid[i][j].push(val);
-					}
-				}
-			},
-
-			get: function(x,y) {
-				return this._grid[x][y];
 			}
+		},
+		insert: function(x,y,val) {
+			_grid[x][y] = val;
 		}
+	}
 
-		var snake = {
-			x: null,
-			y: null,
-			direction: null,
-			_queue: null,
+	function food(x, y) {
+		grid.insert(x,y,FOOD);
+	}
 
-			init: function(d, x, y) {
-				
-			},
+	// reload animation while 1s
+	var frames = 0, canvas, ctx;
+	function loop() {
+		update();
+		draw();
 
-			insert: function() {
+		window.requestAnimationFrame(loop);
+	}
 
-			},
+	function main() {
+		canvas = document.createElement("canvas");
+		canvas.width = COLS * 20;
+		canvas.height = ROWS * 20;
+		ctx = canvas.getContext("2d");
+		document.body.append(canvas);
 
-			remove: function() {
+		frames = 0;
+		loop();
+	}
 
-			}
-		}	
+	function draw() {
+		// grid 정의 
+		grid.init(COLS, ROWS, 0);
+		Math.floor(Math.random() * (COLS*20 - min)) + min;
+		food(x,y)
+	}
 
-		function main() {
-
-		}
-
-		function draw() {
-
-		}
-	</script>
+	function update() {
+		frames++;
+	}
+	main();
+</script>
 </body>
 </html>
