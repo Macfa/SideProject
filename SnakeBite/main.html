@@ -13,7 +13,8 @@
 
 <script type="text/javascript">
 	var COLS = 20, ROWS = 20;
-	var SNAKE = 0, FOOD = 1;
+	var EMPTY = 0, SNAKE = 1, FOOD = 2;
+
 	var grid = {
 		width: null,
 		height: null,
@@ -30,12 +31,25 @@
 				}
 			}
 		},
-		insert: function(x,y,val) {
+		set: function(x,y,val) {
 			_grid[x][y] = val;
+		},
+
+		get: function(x,y) {
+			return _grid[x][y];
 		}
 	}
 
 	function food(x, y) {
+		var empty = [];
+		for (var x = 0; x < grid.width; x++) {
+			for (var y = 0; y < grid.height; y++) {
+				if(grid.get(x,y) == EMPTY ) {
+					empty.push({x:x, y:y});
+				}
+			}
+		}
+		var randpos = empty[Math.floor(Math.random()*empty.length)];
 		grid.insert(x,y,FOOD);
 	}
 
@@ -70,6 +84,42 @@
 		frames++;
 	}
 	main();
+
 </script>
 </body>
 </html>
+
+<!-- 
+게임
+
+grid
+snake
+food
+
+
+grid {
+	width
+	height
+	_grid
+
+	get :
+	init :
+	insert :
+}
+
+snake {
+	x
+	y
+	_stack
+
+	get :
+	set :
+	init :
+}
+
+food : set init
+
+뱀 움직이기
+뱀 초기화
+
+ -->
