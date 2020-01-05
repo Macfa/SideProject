@@ -9,81 +9,139 @@
 	</style>
 </head>
 <body>
+  <h1>Snake Bite Game !</h1>
+  <canvas id="canvas"></canvas>
+
+<script>
+// Constants
+var EMPTY=0, SNAKE=1, FOOD=2;
+var COLS=26, ROWS=26;
+var LEFT=0, UP=1, RIGHT=2, DOWN=3;
+
+// grid is 2-dim array 
+var grid = {
+  _grid: null,
+  width: null,
+  height: null,
+
+  init: function(val,x,y) {
+    this.width = x;
+    this.height = y;
+    this._grid = [];
+
+    for (var x=0; x<this.width; x++) {
+      this._grid.push([]);
+      for (var y=0; y<this.height; y++) {
+        this._grid[x].push(val);
+      }
+    }
+  },
+  set: function(val,x,y) {
+    this._grid[x][y] = val;
+  },
+  get: function(x,y) {
+    return this._grid[x][y];
+  }
+}
+
+var snake = {
+  direction: null,
+  //last: null,
+  _queue: null,
+
+  init: function(d,x,y) {
+    this.direction = d;
+    this._queue = [];
+
+    this.insert(x,y);
+  },
+  insert: function(x,y) {
+    this._queue.unshift({x:x, y:y});
+    // 큐의 가장 앞에 이동할 경로인 x,y 를 넣는다
+  },
+  remove: function() {
+    this._queue.pop();
+  }
+}
+
+function EatFood() {
+  var empty = [];
+
+  for (var x=0; x<grid.width; x++) {
+    for(var y=0; y<grid.height; y++) {
+      if (grid.get(x,y)===EMPTY) {
+        empty.push({x:x, y:y});
+      }
+    }
+  }
+  var ranpos = empty[Math.floor(Math.random()*empty.length)];
+  grid.set(FOOD, ranpos.x, ranpos.y);
+}
+
+var canvas, ctx, keystate, frames;
+
+// Create Canvas 
+function main() {
+  canvas = document.getElementById("canvas");
+  canvas.width = COLS*20;
+  canvas.height = ROWS*20;
+  document.body.appendChild(canvas);
+  ctx = canvas.getContext("2d");
+
+  keystate = {};
+  frames = 0;
+
+  init();
+  loop();
+}
+
+function init() {
+  grid.init(EMPTY, COLS, ROWS);
+
+  
+  //var ranpos = {x:Math.floor(Math.random())*ROWS, y:Math.floor(Math.random())*COLS };
+  var ranpos = {x:Math.floor(COLS/2), y:ROWS-1 };
+  snake.init(UP, ranpos.x, ranpos.y);
+  grid.set(SNAKE, ranpos.x, ranpos.y);
+
+  EatFood();
+}
 
 
-<script type="text/javascript">
-	var COLS = 20, ROWS = 20;
-	var EMPTY = 0, SNAKE = 1, FOOD = 2;
+function loop() {
+  update();
+  draw();
 
-	var grid = {
-		width: null,
-		height: null,
-		_grid: null,
+  window.requestAnimationFrame(loop, canvas);
+}
 
-		init: function(c,r,d) {
-			width = c;
-			height = r;
-			_grid = [];
-			for (var i = 0; i < c.length; i++) {
-				_grid.push(i);
-				for (var j = 0; j < r.length; j++) {
-					_grid[i][j] = d;
-				}
-			}
-		},
-		set: function(x,y,val) {
-			_grid[x][y] = val;
-		},
+function update() {
+  frames++;
+}
 
-		get: function(x,y) {
-			return _grid[x][y];
-		}
-	}
+function draw() {
+  var tw = canvas.width/grid.width;
+  var th = canvas.height/grid.height;
 
-	function food(x, y) {
-		var empty = [];
-		for (var x = 0; x < grid.width; x++) {
-			for (var y = 0; y < grid.height; y++) {
-				if(grid.get(x,y) == EMPTY ) {
-					empty.push({x:x, y:y});
-				}
-			}
-		}
-		var randpos = empty[Math.floor(Math.random()*empty.length)];
-		grid.insert(x,y,FOOD);
-	}
+  for (var x=0; x<grid.width; x++) {
+    for(var y=0; y<grid.height; y++) {
+      switch (grid.get(x,y)) {
+        case EMPTY:
+           ctx.fillStyle = "#fff";
+           break;
+        case SNAKE:
+           ctx.fillStyle = "#0ff";
+           break;
+        case FOOD: 
+           ctx.fillStyle = "#f00";
+           break; 
+      }
+      ctx.fillRect(x*tw, y*th, tw, th);
+    }
+  }
+}
 
-	// reload animation while 1s
-	var frames = 0, canvas, ctx;
-	function loop() {
-		update();
-		draw();
-
-		window.requestAnimationFrame(loop);
-	}
-
-	function main() {
-		canvas = document.createElement("canvas");
-		canvas.width = COLS * 20;
-		canvas.height = ROWS * 20;
-		ctx = canvas.getContext("2d");
-		document.body.append(canvas);
-
-		frames = 0;
-		loop();
-	}
-
-	function draw() {
-		// grid 정의 
-		grid.init(COLS, ROWS, 0);
-		Math.floor(Math.random() * (COLS*20 - min)) + min;
-		food(x,y)
-	}
-
-	function update() {
-		frames++;
-	}
-	main();
+main();
 
 </script>
 </body>
@@ -93,18 +151,35 @@
 게임
 
 grid
-snake
-food
+// 2-D array 생성
+// x, y 좌표값을 가져온다
+// x,y 좌표에 값을 넣는다
 
+snake
+// 스택 배열 필요
+// 배열 안에는 위치정보 저장
+// 방향성 저장
+// 임의의 위치에서 시작
+
+food
+// 스네이크의 값이 없는 곳에 음식 생성
+// 뱀이 먹었을 떄 삭제
 
 grid {
 	width
 	height
 	_grid
 
-	get :
-	init :
-	insert :
+   init :
+sudo: chwon: command not found
+   // store a own position
+
+   insert :
+   // insert a value into _grid
+
+   remove : 
+   // pop a value from _grid
+
 }
 
 snake {
@@ -113,13 +188,14 @@ snake {
 	_stack
 
 	get :
+    // pop a position from stack
+
 	set :
+    // insert a position to stack
+
 	init :
+    // initialize a snake
 }
 
 food : set init
-
-뱀 움직이기
-뱀 초기화
-
  -->
