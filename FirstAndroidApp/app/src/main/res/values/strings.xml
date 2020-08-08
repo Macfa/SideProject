@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">FirstAndroidApp</string>
+    <string name="app_name">경기약사회</string>
+
+    <!-- header -->
+    <string name="header_1">약사회소개</string>
+    <string name="header_2">찾아가는<br/>약사회</string>
+    <string name="header_login">로그인</string>
+    <string name="header_logout">로그아웃</string>
+    <!-- header -->
+
+    <!-- bottom -->
+    <string name="footer_menus">전체메뉴</string>
+    <string name="footer_1">약사공론</string>
+    <string name="footer_2">연수교육</string>
+    <string name="footer_3">메인</string>
+    <string name="footer_4">커뮤니티</string>
+    <string name="footer_5">약사교육원</string>
+    <string name="footer_6">공지사항</string>
+    <!-- bottom -->
+
+
 </resources>

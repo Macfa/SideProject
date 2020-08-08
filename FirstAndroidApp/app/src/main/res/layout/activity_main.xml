@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="APPNAME" />
+        android:text="@string/app_name"
+        />
 
     <ImageView
         android:layout_width="match_parent"
@@ -36,14 +37,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="menu1"
+            android:text="@string/header_1"
+            android:id="@+id/Header_LL_Menu_List_1"
             android:layout_weight="1"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="menu2"
+            android:text="@string/header_2"
+            android:id="@+id/Header_LL_Menu_List_2"
             android:gravity="center"
             android:layout_weight="1"
             />
@@ -51,7 +54,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="menu3"
+            android:text="@string/header_login"
+            android:id="@+id/Header_LL_Menu_List_3"
             android:layout_weight="1"
             android:gravity="right"
             />
@@ -63,7 +67,15 @@
         android:layout_height="248dp"
         android:layout_below="@id/Header_LL_Menu_List"
         android:gravity="center_vertical"
-        android:text="안내문구"></TextView>
+        android:text="안내문구"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/Main_GL_Items"
+        android:layout_below="@id/Header_NO_Slide">
+    </GridLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,10 +83,47 @@
         android:layout_alignParentBottom="true"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="menu7"/>
+            android:layout_weight="1"
+            android:text="@string/footer_menus"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/footer_6"/>
         <!--
             ImageText
         -->
